@@ -1,7 +1,7 @@
 {
   "name": "h5ai",
-  "version": "0.27.0",
-  "description": "A modern HTTP web server index.",
+  "version": "0.28.1",
+  "description": "Modern HTTP web server index.",
   "homepage": "https://larsjung.de/h5ai/",
   "bugs": "https://github.com/lrsjng/h5ai/issues",
   "author": "Lars Jung <lrsjng@gmail.com> (https://larsjung.de)",
@@ -16,14 +16,13 @@
     "build": "npm run -s ghu release"
   },
   "devDependencies": {
-    "babel-core": "6.1.2",
-    "babel-eslint": "4.1.3",
-    "babel-preset-es2015": "6.1.2",
-    "dateformat": "1.0.11",
-    "eslint": "1.7.3",
-    "ghu": "0.1.1"
+    "babel-core": "6.3.21",
+    "babel-eslint": "5.0.0-beta6",
+    "babel-preset-es2015": "6.3.13",
+    "eslint": "1.10.3",
+    "ghu": "0.4.0"
   },
   "engines": {
-    "node": ">=5.0.0"
+    "node": ">=4.0.0"
   }
 }

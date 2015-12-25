@@ -1,10 +1,9 @@
-import {resolve, join} from 'path';
-import dateformat from 'dateformat';
-import ghu from 'ghu';
-import {
-    autoprefixer, cssmin, ife, includeit, jade, jszip,
+const {resolve, join} = require('path');
+const {
+    ghu,
+    autoprefixer, cssmin, each, ife, includeit, jade, jszip,
     less, mapfn, newerThan, read, remove, run, uglify, watch, wrap, write
-} from 'ghu';
+} = require('ghu');
 
 const ROOT = resolve(__dirname);
 const SRC = join(ROOT, 'src');
@@ -24,8 +23,7 @@ ghu.before(runtime => {
         if (hashes.length) {
             const counter = ('000' + hashes.length).substr(-3);
             const hash = hashes[0].substr(0, 7);
-            const stamp = dateformat(Date.now(), 'yyyy-mm-dd-HH-MM-ss');
-            runtime.pkg.version += `+${counter}~${hash}~${stamp}`;
+            runtime.pkg.version += `+${counter}~${hash}`;
         }
     }
 
@@ -90,6 +88,11 @@ ghu.task('build:copy', runtime => {
 
         read(`${SRC}: **, ! **/*.js, ! **/*.less, ! **/*.jade, ! **/conf/*.json`)
             .then(newerThan(mapper))
+            .then(each(obj => {
+                if (/index\.php$/.test(obj.source)) {
+                    obj.content = obj.content.replace('{{VERSION}}', runtime.pkg.version);
+                }
+            }))
             .then(write(mapper, {overwrite: true, cluster: true})),
 
         read(`${ROOT}/*.md`)
